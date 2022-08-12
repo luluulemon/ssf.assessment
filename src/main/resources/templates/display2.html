@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>News Articles</title>
+</head>
+<body>
+    <h2> Crypto News Of the Day </h2>
+    <form   
+        th:action="@{/save}"
+        th:object="${Articles}"
+        >
+        <table  th:object="${Articles}">
+            <tr th:each="article: *{articles} ">
+                <td>    
+                    <table> 
+                        <tr>
+                            <td><img th:src="@{${article.imageurl}}" width="200" height="200"></td>
+                            <td th:text="${'Id: ' + article.id}"></td>
+                            <td th:text="${article.imageurl}"></td>
+                        </tr>
+                        <tr><td></td><td th:text="${article.title}"></td></tr>
+                        <tr><td></td><td th:text="${article.body}"></td></tr>
+                        <tr><td></td><td th:text="${article.categories}"></td></tr>
+                        <tr><td></td><td th:text="${article.tags}"></td></tr>
+                        <tr>
+                            <td th:text="${'Published: ' + article.published_on}"></td>
+                            <td><a th:href="@{${article.url}}">link</a></td>
+                            <label>Save Article</label>
+                            <input type="checkbox" th:field="${Articles.saveStatus}" th:value="${article}"/>
+                            <td></td>
+
+                        </tr>
+                    </table>
+                </td>
+            </tr> 
+        </table> 
+    </form>
+</body>
+</html>
