@@ -8,31 +8,33 @@
 </head>
 <body>
     <h2> Crypto News Of the Day </h2>
+    <br>
     <form   
-        th:action="@{/save}"
+        th:action="@{/articles}"
         th:object="${Articles}"
         >
+        <input type="submit" value="SAVE"/>
+        <br>
         <table  th:object="${Articles}">
-            <tr th:each="article: *{articles} ">
+            <tr th:each="article, status: *{articles} ">
                 <td>    
                     <table> 
                         <tr>
                             <td><img th:src="@{${article.imageurl}}" width="200" height="200"></td>
                             <td th:text="${'Id: ' + article.id}"></td>
-                            <td th:text="${article.imageurl}"></td>
                         </tr>
                         <tr><td></td><td th:text="${article.title}"></td></tr>
                         <tr><td></td><td th:text="${article.body}"></td></tr>
-                        <tr><td></td><td th:text="${article.categories}"></td></tr>
-                        <tr><td></td><td th:text="${article.tags}"></td></tr>
+                        <tr><td></td><td th:text="${'Categories: ' + article.categories}"></td></tr>
+                        <tr><td></td><td th:text="${'Tags: ' + article.tags}"></td></tr>
                         <tr>
                             <td th:text="${'Published: ' + article.published_on}"></td>
                             <td><a th:href="@{${article.url}}">link</a></td>
                             <label>Save Article</label>
-                            <input type="checkbox" th:field="${Articles.saveStatus}" th:value="${article}"/>
+                            <input type="checkbox" th:field="${Articles.saveStatus}" th:value="true"/>
                             <td></td>
-
                         </tr>
+                        <tr></tr>
                     </table>
                 </td>
             </tr> 

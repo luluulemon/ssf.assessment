@@ -60,11 +60,11 @@ public class NewsService {
                         article.setId(v.getString("id"));
                         article.setTitle(v.getString("title"));
                         article.setUrl(v.getString("url"));
-                        article.setImageurl("imageurl");
+                        article.setImageurl(v.getString("imageurl"));
                         article.setPublished_on(v.getInt("published_on"));
                         article.setBody(v.getString("body"));
-                        article.setTags("tags");
-                        article.setCategories("categories");
+                        article.setTags(v.getString("tags"));
+                        article.setCategories(v.getString("categories"));
                         articlesList.add(article);                 
                     }); 
             return articlesList;
@@ -80,9 +80,20 @@ public class NewsService {
 
     public void saveArticles(List<Article> articles){
 
+        // iterate through article List and save each of them to redis
         for(Article article: articles){
-            template.opsForValue(article.getId(), article);
+            template.opsForValue().set(article.getId(), article);
+            logger.info(article.getId());
         }
+    }
+
+
+    public Article loadArticle(String id){
+        return (Article) template.opsForValue().get(id);
+    }
+
+    public boolean hasKey(String id){
+        return template.hasKey(id);
     }
 
 }

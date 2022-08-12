@@ -26,7 +26,6 @@ public class NewsController {
     @GetMapping(path="/")
     public String displayNews(Model model){
 
-
         List<Article> articles = service.getArticles();
         logger.info( "Inside controller check List size >>>> " + Integer.toString(articles.size()) );
         ArticleList articleList = new ArticleList();
@@ -36,7 +35,15 @@ public class NewsController {
     }
 
     @RequestMapping("/save")
-    public String save(@ModelAttribute Article article){
-        return "dummy";
+    public String save(@ModelAttribute Article article, Model model){
+        
+        List<Article> articles = service.getArticles();
+        // need to fix up getting list
+        service.saveArticles(articles);
+
+        ArticleList articleList = new ArticleList();
+        articleList.setArticles(articles);
+        model.addAttribute("Articles", articleList);
+        return "display2";
     }
 }
