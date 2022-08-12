@@ -9,7 +9,6 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
@@ -28,8 +27,7 @@ public class NewsService {
     
     private static final Logger logger = LoggerFactory.getLogger(NewsService.class);
 
-    @Value("${crypto.compare.API_KEY}")
-    private String API_KEY;
+    private String API_KEY = System.getenv("CRYPTO_COMPARE_API_KEY");
 
     @Autowired
     RedisTemplate<String, Object> template;
