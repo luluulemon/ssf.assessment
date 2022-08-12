@@ -10,7 +10,7 @@
     <h2> Crypto News Of the Day </h2>
     <br>
     <form   
-        th:action="@{/articles}"
+        th:action="@{/save}"
         th:object="${Articles}"
         >
         <input type="submit" value="SAVE"/>
@@ -24,14 +24,17 @@
                             <td th:text="${'Id: ' + article.id}"></td>
                         </tr>
                         <tr><td></td><td th:text="${article.title}"></td></tr>
+                        <tr></tr>
                         <tr><td></td><td th:text="${article.body}"></td></tr>
                         <tr><td></td><td th:text="${'Categories: ' + article.categories}"></td></tr>
                         <tr><td></td><td th:text="${'Tags: ' + article.tags}"></td></tr>
-                        <tr>
+                        <tr><td></td>
                             <td th:text="${'Published: ' + article.published_on}"></td>
                             <td><a th:href="@{${article.url}}">link</a></td>
+                            <td>
                             <label>Save Article</label>
-                            <input type="checkbox" th:field="${Articles.saveStatus}" th:value="true"/>
+                            <input type="checkbox" th:field="${Articles.saveStatus}" th:value="${status.index}"/>
+                            </td>
                             <td></td>
                         </tr>
                         <tr></tr>

@@ -1,11 +1,13 @@
 package com.visa.assessment.cryptoNews.Controller;
 
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+
 import org.springframework.web.bind.annotation.RestController;
 
 import com.visa.assessment.cryptoNews.Model.Article;
@@ -21,7 +23,7 @@ public class NewsRESTController {
     @Autowired
     NewsService service;
 
-    @GetMapping(path="/news/{id}")
+    @GetMapping(path="/news/{id}", produces="application/json")
     public ResponseEntity<String> GetArticle(@PathVariable String id){
         if(!service.hasKey(id))
         {   
@@ -30,7 +32,7 @@ public class NewsRESTController {
             return ResponseEntity.status(404).body(errorJson.toString());
             
         }
-        logger.info(id);
+        logger.info("Inside REST >>>>>> check id" + id);
         Article article = service.loadArticle(id);
         
         JsonObject body = Json.createObjectBuilder().add("id", article.getId())
@@ -44,5 +46,6 @@ public class NewsRESTController {
 
         return ResponseEntity.ok(body.toString());
     }
+
 
 }

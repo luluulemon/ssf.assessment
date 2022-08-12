@@ -36,10 +36,20 @@ public class NewsService {
 
     public List<Article> getArticles(){
         String endPoint = "https://min-api.cryptocompare.com/data/v2/news/";
-        // categories allowed values: 1INCH, AAVE, ADA, ALGO, ALTCOIN, AR, ASIA, ATOM, AVAX, AXS, BAL, BAT, BCH, BLOCKCHAIN, BTC, BUSINESS, COMMODITY, COMP, CRV, DASH, DOGE, DOT, ENJ, ETC, ETH, EXCHANGE, FIAT, FIL, FTM, FX, ICO, KNC, LINK, LRC, LTC, LUNA, LUNC, MANA, MARKET, MATIC, MINING, MKR, MV, NU, OP, REGULATION, REN, SAND, SHIB, SNX, SOL, SPONSORED, SUSHI, TECHNOLOGY, TRADING, TRX, UMA, UNI, USDT, WALLET, XLM, XMR, XRP, XTZ, YFI, ZEC, ZRX)"
+        /* categories allowed values: 1INCH, AAVE, ADA, ALGO, ALTCOIN, AR, ASIA, ATOM, AVAX,
+           AXS, BAL, BAT, BCH, BLOCKCHAIN, BTC, BUSINESS, COMMODITY, COMP, CRV, DASH, DOGE, DOT,
+           ENJ, ETC, ETH, EXCHANGE, FIAT, FIL, FTM, FX, ICO, KNC, LINK, LRC, LTC, LUNA, LUNC, MANA,
+           MARKET, MATIC, MINING, MKR, MV, NU, OP, REGULATION, REN, SAND, SHIB, SNX, SOL, SPONSORED,
+           SUSHI, TECHNOLOGY, TRADING, TRX, UMA, UNI, USDT, WALLET, XLM, XMR, XRP, XTZ, YFI, ZEC, ZRX
+
+           **To change categories & excludeCategories as required**
+        */
+   
+        String categories = "ETH,BTC";
+        String excludeCategories = "1INCH";
         String fullUrl = UriComponentsBuilder.fromUriString(endPoint)
-                        .queryParam("categories", "ETH")
-                        .queryParam("excludeCategories", "1INCH" ).toUriString();
+                        .queryParam("categories", categories)
+                        .queryParam("excludeCategories", excludeCategories ).toUriString();
         
         RequestEntity req = RequestEntity.get(fullUrl)
                         .header("authorization", "Apikey " + API_KEY )
@@ -53,7 +63,7 @@ public class NewsService {
         {
                 JsonReader reader = Json.createReader(is);
                 JsonObject data = reader.readObject();
-                data.getJsonArray("Data").stream()
+                data.getJsonArray("Data").stream()      // put each JSON obj into article obj
                     .map(v -> (JsonObject) v)
                     .forEach((JsonObject v) -> 
                     {   Article article = new Article();
@@ -87,7 +97,6 @@ public class NewsService {
         }
     }
 
-
     public Article loadArticle(String id){
         return (Article) template.opsForValue().get(id);
     }
@@ -95,6 +104,7 @@ public class NewsService {
     public boolean hasKey(String id){
         return template.hasKey(id);
     }
+
 
 }
 

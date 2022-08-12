@@ -4,7 +4,7 @@ import java.util.List;
 
 public class ArticleList {
     private List<Article> articles;
-    private String saveStatus;
+    private String[] saveStatus;
     private boolean save;
     
     public List<Article> getArticles() {
@@ -13,10 +13,10 @@ public class ArticleList {
     public void setArticles(List<Article> articles) {
         this.articles = articles;
     }
-    public String getSaveStatus() {
+    public String[] getSaveStatus() {
         return saveStatus;
     }
-    public void setSaveStatus(String saveStatus) {
+    public void setSaveStatus(String[] saveStatus) {
         this.saveStatus = saveStatus;
     }
     public boolean isSave() {

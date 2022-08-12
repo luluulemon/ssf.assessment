@@ -12,14 +12,7 @@ public class Article implements Serializable{
     private String tags;
     private String categories;
     private boolean save;
-    private String saveStatus;
 
-    public String getSaveStatus() {
-        return saveStatus;
-    }
-    public void setSaveStatus(String saveStatus) {
-        this.saveStatus = saveStatus;
-    }
     public boolean isSave() {
         return save;
     }
